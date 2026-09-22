@@ -1,0 +1,5 @@
+.about { background: var(--paper); padding: 70px 24px; }
+.about-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+.about-inner .eyebrow { font-family: var(--font-accent); color: var(--brick); font-size: 22px; display: block; margin-bottom: 2px; }
+.about-inner h2 { font-size: 34px; color: var(--pine); margin-bottom: 16px; }
+.about-inner p { font-size: 18px; color: #5a4536; }

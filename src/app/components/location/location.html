@@ -1,0 +1,16 @@
+<section id="ubicacion">
+  <div class="location-inner">
+    <iframe
+      class="map-box"
+      [src]="mapUrl"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Mapa de ubicación de CaféParche">
+    </iframe>
+    <div class="info-list">
+      <p><strong>Dirección</strong>{{ address }}</p>
+      <p><strong>Horario</strong>{{ hours }}</p>
+      <p><strong>Reservas de grupo</strong>Escríbenos por WhatsApp, te guardamos mesa.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+<section class="gallery">
+  <div class="section-head">
+    <span class="eyebrow">momentos reales</span>
+    <h2>El ambiente</h2>
+  </div>
+  <div class="gallery-grid">
+    @for (photo of photos; track photo.src) {
+      <img [src]="photo.src" [alt]="photo.alt" loading="lazy" decoding="async" width="260" height="260">
+    }
+  </div>
+</section>

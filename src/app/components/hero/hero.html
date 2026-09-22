@@ -1,0 +1,23 @@
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="eyebrow">tu segunda sala de estar</span>
+      <h1>Ven a parchar,<br>quédate a compartir.</h1>
+      <span class="location-badge">📍 {{ neighborhood }}</span>
+      <p>Un café de barrio para llegar con amigos, familia o solo, y quedarte el tiempo que quieras. Sin afán.</p>
+      <div class="hero-buttons">
+        <a class="btn-primary" [href]="whatsappLink" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+        <a class="btn-secondary" href="#menu">Ver el menú</a>
+      </div>
+    </div>
+    <div class="corkboard">
+      @for (photo of photos; track photo.positionClass) {
+        <div class="photo" [class]="photo.positionClass">
+          <div class="tape"></div>
+          <img [src]="photo.src" [alt]="photo.alt" width="150" height="140">
+          <div class="cap">{{ photo.caption }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
