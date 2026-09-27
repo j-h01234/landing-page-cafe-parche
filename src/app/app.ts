@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { Navbar } from './components/navbar/navbar';
 import { Hero } from './components/hero/hero';
@@ -20,6 +20,7 @@ import { BUSINESS_INFO } from './shared/business-info';
 })
 export class App {
   private readonly document = inject(DOCUMENT);
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor(title: Title, meta: Meta) {
     const imageUrl = `${BUSINESS_INFO.siteUrl}${BUSINESS_INFO.ogImage}`;
@@ -38,23 +39,27 @@ export class App {
       { name: 'twitter:image', content: imageUrl }
     ]);
 
-    const jsonLd = this.document.createElement('script');
-    jsonLd.type = 'application/ld+json';
-    jsonLd.text = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'CafeOrCoffeeShop',
-      name: BUSINESS_INFO.businessName,
-      description: BUSINESS_INFO.metaDescription,
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: BUSINESS_INFO.address,
-        addressLocality: 'Medellín',
-        addressCountry: 'CO'
-      },
-      openingHours: ['Mo-Fr 08:00-20:00', 'Sa-Su 09:00-21:00'],
-      url: BUSINESS_INFO.siteUrl,
-      sameAs: [BUSINESS_INFO.instagramLink]
-    });
-    this.document.head.appendChild(jsonLd);
+    // Solo se inyecta en el prerender: queda horneado en el HTML estático.
+    // Si corriera también al hidratar en el navegador, duplicaría el <script> en el DOM real.
+    if (isPlatformServer(this.platformId)) {
+      const jsonLd = this.document.createElement('script');
+      jsonLd.type = 'application/ld+json';
+      jsonLd.text = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CafeOrCoffeeShop',
+        name: BUSINESS_INFO.businessName,
+        description: BUSINESS_INFO.metaDescription,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: BUSINESS_INFO.address,
+          addressLocality: 'Medellín',
+          addressCountry: 'CO'
+        },
+        openingHours: ['Mo-Fr 08:00-20:00', 'Sa-Su 09:00-21:00'],
+        url: BUSINESS_INFO.siteUrl,
+        sameAs: [BUSINESS_INFO.instagramLink]
+      });
+      this.document.head.appendChild(jsonLd);
+    }
   }
 }
