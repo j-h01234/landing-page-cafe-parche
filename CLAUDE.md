@@ -16,7 +16,10 @@ Landing page de un solo scroll para "CaféParche", un **concepto de café de bar
 - Sin routing (single page)
 - **Prerendering en build-time**: `outputMode: 'static'` en `angular.json` — genera HTML real navegable, sin servidor Node corriendo. Crítico para SEO/Core Web Vitals, no lo cambies a `'server'`.
 - Componentes standalone en `src/app/components/`: `navbar`, `hero`, `about`, `menu`, `gallery`, `location`, `contact`, `footer`, `floating-whatsapp`
-- `src/app/shared/business-info.ts`: constante centralizada con número de WhatsApp, dirección y horario. **Nunca hardcodear estos datos directamente en un componente** — importar de acá siempre.
+- `src/app/shared/business-info.ts`: **única fuente de verdad** del contenido del sitio — WhatsApp, dirección, horario, título/meta description, imagen OG, y los arrays de fotos del hero/galería/menú. **Nunca hardcodear estos datos directamente en un componente** — importar de acá siempre. Pensado así a propósito para poder reusar este proyecto como plantilla con otros clientes: en teoría, un cliente nuevo = editar este archivo + reemplazar fotos en `public/images/`, sin tocar el resto del código.
+- `src/app/app.ts`: inyecta `<title>`, meta description, Open Graph/Twitter Card y el JSON-LD (`CafeOrCoffeeShop`) en tiempo de build usando los servicios `Title`/`Meta` de Angular — quedan horneados en el HTML prerenderizado (verificado leyendo `dist/cafeparche/browser/index.html` después del build). `index.html` ya no tiene esos tags a mano.
+- `netlify.toml`: build command, publish dir, `NODE_VERSION` y headers de seguridad (CSP, X-Frame-Options, HSTS, etc.) — `style-src` necesita `'unsafe-inline'` porque Angular inyecta los estilos por componente como `<style>` inline en el `<head>`, no como archivo aparte.
+- `.nvmrc`: fija la versión de Node (Angular CLI 20.3.x exige `^20.19.0 || ^22.12.0`, y `@netlify/angular-runtime` exige `^22.22.0` en adelante — la intersección usada es `22.22.0`).
 - Variables de diseño (paleta, tipografía) en `src/styles.css`
 
 ## Decisiones ya tomadas (no las reabras sin preguntar)
@@ -45,7 +48,8 @@ Van en `public/images/`, 14 archivos exactos — ver `cafeparche-imagenes-manifi
 ## Pendientes bloqueados (no resolver solo, preguntar)
 
 - **Número real de WhatsApp**: sigue en placeholder `573000000000` en `business-info.ts` hasta que Camilo lo confirme.
-- **Dominio propio**: aún en subdominio Netlify (`classy-pudding-99966c.netlify.app`), decisión pendiente de Camilo, no urgente.
+- **Dominio propio**: aún en subdominio Netlify (`classy-pudding-99966c.netlify.app` es del repo viejo `CafeParche`; este repo `landing-page-cafe-parche` tiene su propio deploy nuevo en Netlify, con URL todavía por confirmar).
+- **`siteUrl` en `business-info.ts`**: placeholder `https://REEMPLAZAR-con-la-url-real-del-deploy.netlify.app` hasta tener la URL final. Usado en Open Graph/Twitter/JSON-LD. `public/robots.txt` y `public/sitemap.xml` tienen el mismo placeholder — son archivos estáticos que el build no procesa, hay que actualizar los tres a mano cuando se defina la URL.
 
 ## Comandos
 
