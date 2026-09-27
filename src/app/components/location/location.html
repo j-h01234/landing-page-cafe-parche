@@ -1,12 +1,21 @@
 <section id="ubicacion">
   <div class="location-inner">
-    <iframe
-      class="map-box"
-      [src]="mapUrl"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      title="Mapa de ubicación de CaféParche">
-    </iframe>
+    <div class="map-box">
+      @if (mapLoaded) {
+        <iframe
+          [src]="mapUrl"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa de ubicación de CaféParche">
+        </iframe>
+      } @else {
+        <button type="button" class="map-placeholder" (click)="loadMap()">
+          <span class="map-icon">📍</span>
+          <span>Ver mapa interactivo</span>
+          <small>Carga contenido de Google Maps</small>
+        </button>
+      }
+    </div>
     <div class="info-list">
       <p><strong>Dirección</strong>{{ address }}</p>
       <p><strong>Horario</strong>{{ hours }}</p>
