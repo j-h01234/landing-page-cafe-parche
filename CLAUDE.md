@@ -48,8 +48,8 @@ Van en `public/images/`, 14 archivos exactos — ver `cafeparche-imagenes-manifi
 ## Pendientes bloqueados (no resolver solo, preguntar)
 
 - **Número real de WhatsApp**: sigue en placeholder `573000000000` en `business-info.ts` hasta que Camilo lo confirme.
-- **Dominio propio**: aún en subdominio Netlify (`classy-pudding-99966c.netlify.app` es del repo viejo `CafeParche`; este repo `landing-page-cafe-parche` tiene su propio deploy nuevo en Netlify, con URL todavía por confirmar).
-- **`siteUrl` en `business-info.ts`**: placeholder `https://REEMPLAZAR-con-la-url-real-del-deploy.netlify.app` hasta tener la URL final. Usado en Open Graph/Twitter/JSON-LD. `public/robots.txt` y `public/sitemap.xml` tienen el mismo placeholder — son archivos estáticos que el build no procesa, hay que actualizar los tres a mano cuando se defina la URL.
+- **Dominio propio**: este repo (`landing-page-cafe-parche`) despliega en `https://cafeparche.netlify.app` (el subdominio `classy-pudding-99966c.netlify.app` es del repo viejo `CafeParche`, no de este). Dominio propio sigue pendiente, no urgente.
+- **`siteUrl`**: ya actualizado a `https://cafeparche.netlify.app` en `business-info.ts`, `public/robots.txt` y `public/sitemap.xml`. Si el dominio cambia a futuro (dominio propio), hay que actualizar los tres a mano — son los únicos lugares que lo referencian.
 
 ## Comandos
 

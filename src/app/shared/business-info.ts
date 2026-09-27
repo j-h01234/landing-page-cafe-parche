@@ -31,10 +31,7 @@ export const BUSINESS_INFO = {
   neighborhood: 'Laureles, Medellín',
   hours: 'Lun a vie: 8am – 8pm · Sáb y dom: 9am – 9pm',
 
-  // TODO: reemplazar por la URL real del deploy (dominio propio o subdominio Netlify definitivo).
-  // robots.txt y sitemap.xml tienen el mismo placeholder — hay que sincronizar los tres a mano,
-  // porque esos dos son archivos estáticos que el build de Angular no procesa.
-  siteUrl: 'https://REEMPLAZAR-con-la-url-real-del-deploy.netlify.app',
+  siteUrl: 'https://cafeparche.netlify.app',
   siteTitle: 'CaféParche — Ven a parchar, quédate a compartir',
   metaDescription: 'CaféParche: un café de barrio en Laureles, Medellín, para llegar con amigos o familia y quedarte el tiempo que quieras.',
   ogImage: '/images/hero-fachada.jpg',
